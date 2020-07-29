@@ -5,14 +5,14 @@
 // Copyright (c) 2010 TJ Holowaychuk <tj@vision-media.ca>
 //
 
-#include "list.h"
+#include "fwk_list.h"
 
 /*
  * Allocate a new list_t. NULL on failure.
  */
 
 list_t *
-list_new(void) {
+fwk_list_new(void) {
   list_t *self;
   if (!(self = LIST_MALLOC(sizeof(list_t))))
     return NULL;
@@ -29,7 +29,7 @@ list_new(void) {
  */
 
 void
-list_destroy(list_t *self) {
+fwk_list_destroy(list_t *self) {
   unsigned int len = self->len;
   list_node_t *next;
   list_node_t *curr = self->head;
@@ -50,7 +50,7 @@ list_destroy(list_t *self) {
  */
 
 list_node_t *
-list_rpush(list_t *self, list_node_t *node) {
+fwk_list_rpush(list_t *self, list_node_t *node) {
   if (!node) return NULL;
 
   if (self->len) {
@@ -72,7 +72,7 @@ list_rpush(list_t *self, list_node_t *node) {
  */
 
 list_node_t *
-list_rpop(list_t *self) {
+fwk_list_rpop(list_t *self) {
   if (!self->len) return NULL;
 
   list_node_t *node = self->tail;
@@ -92,7 +92,7 @@ list_rpop(list_t *self) {
  */
 
 list_node_t *
-list_lpop(list_t *self) {
+fwk_list_lpop(list_t *self) {
   if (!self->len) return NULL;
 
   list_node_t *node = self->head;
@@ -113,7 +113,7 @@ list_lpop(list_t *self) {
  */
 
 list_node_t *
-list_lpush(list_t *self, list_node_t *node) {
+fwk_list_lpush(list_t *self, list_node_t *node) {
   if (!node) return NULL;
 
   if (self->len) {
@@ -135,25 +135,25 @@ list_lpush(list_t *self, list_node_t *node) {
  */
 
 list_node_t *
-list_find(list_t *self, void *val) {
-  list_iterator_t *it = list_iterator_new(self, LIST_HEAD);
+fwk_list_find(list_t *self, void *val) {
+  list_iterator_t *it = fwk_list_iterator_new(self, LIST_HEAD);
   list_node_t *node;
 
-  while ((node = list_iterator_next(it))) {
+  while ((node = fwk_list_iterator_next(it))) {
     if (self->match) {
       if (self->match(val, node->val)) {
-        list_iterator_destroy(it);
+        fwk_list_iterator_destroy(it);
         return node;
       }
     } else {
       if (val == node->val) {
-        list_iterator_destroy(it);
+        fwk_list_iterator_destroy(it);
         return node;
       }
     }
   }
 
-  list_iterator_destroy(it);
+  fwk_list_iterator_destroy(it);
   return NULL;
 }
 
@@ -162,7 +162,7 @@ list_find(list_t *self, void *val) {
  */
 
 list_node_t *
-list_at(list_t *self, int index) {
+fwk_list_at(list_t *self, int index) {
   list_direction_t direction = LIST_HEAD;
 
   if (index < 0) {
@@ -171,10 +171,10 @@ list_at(list_t *self, int index) {
   }
 
   if ((unsigned)index < self->len) {
-    list_iterator_t *it = list_iterator_new(self, direction);
-    list_node_t *node = list_iterator_next(it);
-    while (index--) node = list_iterator_next(it);
-    list_iterator_destroy(it);
+    list_iterator_t *it = fwk_list_iterator_new(self, direction);
+    list_node_t *node = fwk_list_iterator_next(it);
+    while (index--) node = fwk_list_iterator_next(it);
+    fwk_list_iterator_destroy(it);
     return node;
   }
 
@@ -186,7 +186,7 @@ list_at(list_t *self, int index) {
  */
 
 void
-list_remove(list_t *self, list_node_t *node) {
+fwk_list_remove(list_t *self, list_node_t *node) {
   node->prev
     ? (node->prev->next = node->next)
     : (self->head = node->next);

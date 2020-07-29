@@ -78,50 +78,50 @@ typedef struct {
 // Node prototypes.
 
 list_node_t *
-list_node_new(void *val);
+fwk_list_node_new(void *val);
 
 // list_t prototypes.
 
 list_t *
-list_new(void);
+fwk_list_new(void);
 
 list_node_t *
-list_rpush(list_t *self, list_node_t *node);
+fwk_list_rpush(list_t *self, list_node_t *node);
 
 list_node_t *
-list_lpush(list_t *self, list_node_t *node);
+fwk_list_lpush(list_t *self, list_node_t *node);
 
 list_node_t *
-list_find(list_t *self, void *val);
+fwk_list_find(list_t *self, void *val);
 
 list_node_t *
-list_at(list_t *self, int index);
+fwk_list_at(list_t *self, int index);
 
 list_node_t *
-list_rpop(list_t *self);
+fwk_list_rpop(list_t *self);
 
 list_node_t *
-list_lpop(list_t *self);
+fwk_list_lpop(list_t *self);
 
 void
-list_remove(list_t *self, list_node_t *node);
+fwk_list_remove(list_t *self, list_node_t *node);
 
 void
-list_destroy(list_t *self);
+fwk_list_destroy(list_t *self);
 
 // list_t iterator prototypes.
 
 list_iterator_t *
-list_iterator_new(list_t *list, list_direction_t direction);
+fwk_list_iterator_new(list_t *list, list_direction_t direction);
 
 list_iterator_t *
-list_iterator_new_from_node(list_node_t *node, list_direction_t direction);
+fwk_list_iterator_new_from_node(list_node_t *node, list_direction_t direction);
 
 list_node_t *
-list_iterator_next(list_iterator_t *self);
+fwk_list_iterator_next(list_iterator_t *self);
 
 void
-list_iterator_destroy(list_iterator_t *self);
+fwk_list_iterator_destroy(list_iterator_t *self);
 
 #ifdef __cplusplus
 }
